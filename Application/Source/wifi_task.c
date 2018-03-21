@@ -978,9 +978,11 @@ bool WiFi_Ctrl_SendRespond(void)
             memset(&tx_buffer[MSG_RECOGNIZE_CODE_LEN+6], MSG_END_CODE, MSG_RECOGNIZE_CODE_LEN);
             
             WiFi_SendData(tx_buffer, MSG_RECOGNIZE_CODE_LEN+5);
-            if(respond.length != 0)
+            if(respond.payload != NULL)
             {
                 WiFi_SendData(respond.payload, respond.length);
+                vPortFree(respond.payload);
+                respond.payload = NULL;
             }
             WiFi_SendData(&tx_buffer[MSG_RECOGNIZE_CODE_LEN+5], MSG_RECOGNIZE_CODE_LEN+1);
             
@@ -996,9 +998,6 @@ bool WiFi_Ctrl_SendRespond(void)
                 }
             }
         }
-        
-        /* free payload memory to avoid stack overflow */
-        vPortFree(respond.payload);
         
         if(rtn_state == true)
         {

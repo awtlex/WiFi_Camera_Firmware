@@ -45,6 +45,7 @@ void Client_GetMacAddress(void);
 void Client_GetCameraImage(void);
 void Client_GetState(void);
 void Client_GetFirmwareVersion(void);
+void Client_GetID(void);
 void Client_SetWebAccount(void);
 void Client_SetWifi(void);
 void Client_SetMotor(void);
@@ -179,6 +180,9 @@ void Client_RequestHandler(void)
         break;
     case MSG_GET_VERSION:
         Client_GetFirmwareVersion();
+        break; 
+   case MSG_GET_ID:
+        Client_GetID();
         break;
         
     case MSG_SET_ACCOUNT:   //------------------------- Set command
@@ -236,7 +240,11 @@ void Client_RequestHandler(void)
     }
     
     /* Free payload memory */
-    vPortFree(message.payload);
+    if(message.payload != NULL)
+    {
+        vPortFree(message.payload);
+        message.payload = NULL;
+    }
 }
 
 /*******************************************************************************
@@ -260,10 +268,13 @@ void Client_RespondHandler(uint8_t state)
     }
     else  /* if(state == MSG_FB_ERROR) */
     {
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
+//        if(feedback.payload != NULL)
+//        {
+//            vPortFree(feedback.payload);
+//        }
+//        feedback.index = 0;
+//        feedback.length = 0;
+//        feedback.payload = NULL;
         sprintf(disp_req.message2, "CMD:%02X Error", message.command);
     }
         
@@ -292,7 +303,7 @@ void Client_GetMacAddress(void)
     uint8_t i;
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get MAC\r\n");
 
-    vPortFree(feedback.payload);
+    //vPortFree(feedback.payload);
     feedback.index = 0;
     feedback.length = 18;
     feedback.payload = (uint8_t *)pvPortMalloc(18);
@@ -317,12 +328,13 @@ void Client_GetState(void)
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get State\r\n");
     feedback.index = 0;
     feedback.length = 5;
+    //vPortFree(feedback.payload);
     feedback.payload = (uint8_t *)pvPortMalloc(5);
-    feedback.payload[0] = motor_group.motor1.alarm_state;
-    feedback.payload[1] = motor_group.motor2.alarm_state;
-    feedback.payload[2] = motor_group.motor3.alarm_state;
-    feedback.payload[3] = motor_group.motor4.alarm_state;
-    feedback.payload[4] = motor_group.motor5.alarm_state;
+    feedback.payload[0] = 0;
+    feedback.payload[1] = 0;
+    feedback.payload[2] = 1;
+    feedback.payload[3] = 1;
+    feedback.payload[4] = 0;
     Client_RespondHandler( MSG_FB_OK );
     
     Client_RespondHandler( MSG_FB_OK );
@@ -334,9 +346,22 @@ void Client_GetFirmwareVersion(void)
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get Version\r\n");
     feedback.index = 0;
     feedback.length = 2;
+    //vPortFree(feedback.payload);
     feedback.payload = (uint8_t *)pvPortMalloc(2);
     feedback.payload[0] = (uint8_t)(APP_VERSION & 0xFF);
     feedback.payload[1] = (uint8_t)((APP_VERSION >> 8) & 0xFF);
+    Client_RespondHandler( MSG_FB_OK );
+}
+
+/*******************************************************************************/
+void Client_GetID(void)
+{
+    DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get ID\r\n");
+    feedback.index = 0;
+    feedback.length = strlen(app_config.account_id) + 1;
+    //vPortFree(feedback.payload);
+    feedback.payload = (uint8_t *)pvPortMalloc(feedback.length);
+    memcpy(feedback.payload, app_config.account_id, feedback.length);
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -552,7 +577,7 @@ void Client_OtaUpdateRequest(void)
 {
     uint16_t fw_ver = 0;
     memset(&ota_info, 0, sizeof(ota_info));
-    vPortFree(feedback.payload);
+    //vPortFree(feedback.payload);
     memset(&feedback, 0, sizeof(feedback));
     
     if((message.length == 2) && (message.payload != NULL))

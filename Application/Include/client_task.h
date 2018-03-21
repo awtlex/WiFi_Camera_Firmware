@@ -41,6 +41,7 @@
 #define MSG_GET_IMAGE           (MSG_GET_BASE + 2)
 #define MSG_GET_STATE           (MSG_GET_BASE + 3)
 #define MSG_GET_VERSION         (MSG_GET_BASE + 4)
+#define MSG_GET_ID              (MSG_GET_BASE + 5)
 /* App set command code */
 #define MSG_SET_BASE            0x20
 #define MSG_SET_ACCOUNT         (MSG_SET_BASE + 1)
