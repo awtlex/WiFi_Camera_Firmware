@@ -2,6 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_ll_fmc.h
   * @author  MCD Application Team
+  * @version V1.7.1
+  * @date    14-April-2017
   * @brief   Header file of FMC HAL module.
   ******************************************************************************
   * @attention
@@ -796,16 +798,16 @@ typedef struct
  */
 /**
   * @brief  Enable the NORSRAM device access.
-  * @param  __INSTANCE__ FMC_NORSRAM Instance
-  * @param  __BANK__ FMC_NORSRAM Bank     
+  * @param  __INSTANCE__: FMC_NORSRAM Instance
+  * @param  __BANK__: FMC_NORSRAM Bank     
   * @retval None
   */ 
 #define __FMC_NORSRAM_ENABLE(__INSTANCE__, __BANK__)  ((__INSTANCE__)->BTCR[(__BANK__)] |= FMC_BCR1_MBKEN)
 
 /**
   * @brief  Disable the NORSRAM device access.
-  * @param  __INSTANCE__ FMC_NORSRAM Instance
-  * @param  __BANK__ FMC_NORSRAM Bank   
+  * @param  __INSTANCE__: FMC_NORSRAM Instance
+  * @param  __BANK__: FMC_NORSRAM Bank   
   * @retval None
   */ 
 #define __FMC_NORSRAM_DISABLE(__INSTANCE__, __BANK__) ((__INSTANCE__)->BTCR[(__BANK__)] &= ~FMC_BCR1_MBKEN)  
@@ -820,24 +822,24 @@ typedef struct
 #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx) 
 /**
   * @brief  Enable the NAND device access.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__ FMC_NAND Bank    
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__: FMC_NAND Bank    
   * @retval None
   */  
 #define __FMC_NAND_ENABLE(__INSTANCE__, __BANK__)  ((__INSTANCE__)->PCR |= FMC_PCR_PBKEN)
 
 /**
   * @brief  Disable the NAND device access.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__ FMC_NAND Bank  
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__: FMC_NAND Bank  
   * @retval None
   */
 #define __FMC_NAND_DISABLE(__INSTANCE__, __BANK__) ((__INSTANCE__)->PCR &= ~FMC_PCR_PBKEN)
 #else /* defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) */
 /**
   * @brief  Enable the NAND device access.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__ FMC_NAND Bank    
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__: FMC_NAND Bank    
   * @retval None
   */  
 #define __FMC_NAND_ENABLE(__INSTANCE__, __BANK__)  (((__BANK__) == FMC_NAND_BANK2)? ((__INSTANCE__)->PCR2 |= FMC_PCR2_PBKEN): \
@@ -845,8 +847,8 @@ typedef struct
 
 /**
   * @brief  Disable the NAND device access.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__ FMC_NAND Bank  
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__: FMC_NAND Bank  
   * @retval None
   */
 #define __FMC_NAND_DISABLE(__INSTANCE__, __BANK__) (((__BANK__) == FMC_NAND_BANK2)? ((__INSTANCE__)->PCR2 &= ~FMC_PCR2_PBKEN): \
@@ -863,14 +865,14 @@ typedef struct
  */
 /**
   * @brief  Enable the PCCARD device access.
-  * @param  __INSTANCE__ FMC_PCCARD Instance  
+  * @param  __INSTANCE__: FMC_PCCARD Instance  
   * @retval None
   */ 
 #define __FMC_PCCARD_ENABLE(__INSTANCE__)  ((__INSTANCE__)->PCR4 |= FMC_PCR4_PBKEN)
 
 /**
   * @brief  Disable the PCCARD device access.
-  * @param  __INSTANCE__ FMC_PCCARD Instance     
+  * @param  __INSTANCE__: FMC_PCCARD Instance     
   * @retval None
   */ 
 #define __FMC_PCCARD_DISABLE(__INSTANCE__) ((__INSTANCE__)->PCR4 &= ~FMC_PCR4_PBKEN)
@@ -886,9 +888,9 @@ typedef struct
 #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
 /**
   * @brief  Enable the NAND device interrupt.
-  * @param  __INSTANCE__  FMC_NAND instance
-  * @param  __BANK__      FMC_NAND Bank     
-  * @param  __INTERRUPT__ FMC_NAND interrupt 
+  * @param  __INSTANCE__:  FMC_NAND instance
+  * @param  __BANK__:      FMC_NAND Bank     
+  * @param  __INTERRUPT__: FMC_NAND interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -899,9 +901,9 @@ typedef struct
 
 /**
   * @brief  Disable the NAND device interrupt.
-  * @param  __INSTANCE__  FMC_NAND Instance
-  * @param  __BANK__      FMC_NAND Bank    
-  * @param  __INTERRUPT__ FMC_NAND interrupt
+  * @param  __INSTANCE__:  FMC_NAND Instance
+  * @param  __BANK__:      FMC_NAND Bank    
+  * @param  __INTERRUPT__: FMC_NAND interrupt
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -912,9 +914,9 @@ typedef struct
 
 /**
   * @brief  Get flag status of the NAND device.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__     FMC_NAND Bank      
-  * @param  __FLAG__ FMC_NAND flag
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__:     FMC_NAND Bank      
+  * @param  __FLAG__: FMC_NAND flag
   *         This parameter can be any combination of the following values:
   *            @arg FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -925,9 +927,9 @@ typedef struct
 #define __FMC_NAND_GET_FLAG(__INSTANCE__, __BANK__, __FLAG__)  (((__INSTANCE__)->SR &(__FLAG__)) == (__FLAG__))
 /**
   * @brief  Clear flag status of the NAND device.
-  * @param  __INSTANCE__ FMC_NAND Instance  
-  * @param  __BANK__     FMC_NAND Bank  
-  * @param  __FLAG__ FMC_NAND flag
+  * @param  __INSTANCE__: FMC_NAND Instance  
+  * @param  __BANK__:     FMC_NAND Bank  
+  * @param  __FLAG__: FMC_NAND flag
   *         This parameter can be any combination of the following values:
   *            @arg FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -939,9 +941,9 @@ typedef struct
 #else /* defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) */
 /**
   * @brief  Enable the NAND device interrupt.
-  * @param  __INSTANCE__  FMC_NAND instance
-  * @param  __BANK__      FMC_NAND Bank     
-  * @param  __INTERRUPT__ FMC_NAND interrupt 
+  * @param  __INSTANCE__:  FMC_NAND instance
+  * @param  __BANK__:      FMC_NAND Bank     
+  * @param  __INTERRUPT__: FMC_NAND interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -953,9 +955,9 @@ typedef struct
 
 /**
   * @brief  Disable the NAND device interrupt.
-  * @param  __INSTANCE__  FMC_NAND Instance
-  * @param  __BANK__      FMC_NAND Bank    
-  * @param  __INTERRUPT__ FMC_NAND interrupt
+  * @param  __INSTANCE__:  FMC_NAND Instance
+  * @param  __BANK__:      FMC_NAND Bank    
+  * @param  __INTERRUPT__: FMC_NAND interrupt
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -967,9 +969,9 @@ typedef struct
 
 /**
   * @brief  Get flag status of the NAND device.
-  * @param  __INSTANCE__ FMC_NAND Instance
-  * @param  __BANK__     FMC_NAND Bank      
-  * @param  __FLAG__ FMC_NAND flag
+  * @param  __INSTANCE__: FMC_NAND Instance
+  * @param  __BANK__:     FMC_NAND Bank      
+  * @param  __FLAG__: FMC_NAND flag
   *         This parameter can be any combination of the following values:
   *            @arg FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -981,9 +983,9 @@ typedef struct
                                                                                                  (((__INSTANCE__)->SR3 &(__FLAG__)) == (__FLAG__)))
 /**
   * @brief  Clear flag status of the NAND device.
-  * @param  __INSTANCE__ FMC_NAND Instance  
-  * @param  __BANK__     FMC_NAND Bank  
-  * @param  __FLAG__ FMC_NAND flag
+  * @param  __INSTANCE__: FMC_NAND Instance  
+  * @param  __BANK__:     FMC_NAND Bank  
+  * @param  __FLAG__: FMC_NAND flag
   *         This parameter can be any combination of the following values:
   *            @arg FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -998,8 +1000,8 @@ typedef struct
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)
 /**
   * @brief  Enable the PCCARD device interrupt.
-  * @param  __INSTANCE__ FMC_PCCARD instance  
-  * @param  __INTERRUPT__ FMC_PCCARD interrupt 
+  * @param  __INSTANCE__: FMC_PCCARD instance  
+  * @param  __INTERRUPT__: FMC_PCCARD interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -1010,8 +1012,8 @@ typedef struct
 
 /**
   * @brief  Disable the PCCARD device interrupt.
-  * @param  __INSTANCE__ FMC_PCCARD instance  
-  * @param  __INTERRUPT__ FMC_PCCARD interrupt 
+  * @param  __INSTANCE__: FMC_PCCARD instance  
+  * @param  __INTERRUPT__: FMC_PCCARD interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_RISING_EDGE: Interrupt rising edge.
   *            @arg FMC_IT_LEVEL: Interrupt level.
@@ -1022,8 +1024,8 @@ typedef struct
 
 /**
   * @brief  Get flag status of the PCCARD device.
-  * @param  __INSTANCE__ FMC_PCCARD instance  
-  * @param  __FLAG__ FMC_PCCARD flag
+  * @param  __INSTANCE__: FMC_PCCARD instance  
+  * @param  __FLAG__: FMC_PCCARD flag
   *         This parameter can be any combination of the following values:
   *            @arg  FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg  FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -1035,8 +1037,8 @@ typedef struct
 
 /**
   * @brief  Clear flag status of the PCCARD device.
-  * @param  __INSTANCE__ FMC_PCCARD instance  
-  * @param  __FLAG__ FMC_PCCARD flag
+  * @param  __INSTANCE__: FMC_PCCARD instance  
+  * @param  __FLAG__: FMC_PCCARD flag
   *         This parameter can be any combination of the following values:
   *            @arg  FMC_FLAG_RISING_EDGE: Interrupt rising edge flag.
   *            @arg  FMC_FLAG_LEVEL: Interrupt level edge flag.
@@ -1049,8 +1051,8 @@ typedef struct
 
 /**
   * @brief  Enable the SDRAM device interrupt.
-  * @param  __INSTANCE__ FMC_SDRAM instance  
-  * @param  __INTERRUPT__ FMC_SDRAM interrupt 
+  * @param  __INSTANCE__: FMC_SDRAM instance  
+  * @param  __INTERRUPT__: FMC_SDRAM interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_REFRESH_ERROR: Interrupt refresh error      
   * @retval None
@@ -1059,8 +1061,8 @@ typedef struct
 
 /**
   * @brief  Disable the SDRAM device interrupt.
-  * @param  __INSTANCE__ FMC_SDRAM instance  
-  * @param  __INTERRUPT__ FMC_SDRAM interrupt 
+  * @param  __INSTANCE__: FMC_SDRAM instance  
+  * @param  __INTERRUPT__: FMC_SDRAM interrupt 
   *         This parameter can be any combination of the following values:
   *            @arg FMC_IT_REFRESH_ERROR: Interrupt refresh error      
   * @retval None
@@ -1069,8 +1071,8 @@ typedef struct
 
 /**
   * @brief  Get flag status of the SDRAM device.
-  * @param  __INSTANCE__ FMC_SDRAM instance  
-  * @param  __FLAG__ FMC_SDRAM flag
+  * @param  __INSTANCE__: FMC_SDRAM instance  
+  * @param  __FLAG__: FMC_SDRAM flag
   *         This parameter can be any combination of the following values:
   *            @arg FMC_SDRAM_FLAG_REFRESH_IT: Interrupt refresh error.
   *            @arg FMC_SDRAM_FLAG_BUSY: SDRAM busy flag.
@@ -1081,8 +1083,8 @@ typedef struct
 
 /**
   * @brief  Clear flag status of the SDRAM device.
-  * @param  __INSTANCE__ FMC_SDRAM instance  
-  * @param  __FLAG__ FMC_SDRAM flag
+  * @param  __INSTANCE__: FMC_SDRAM instance  
+  * @param  __FLAG__: FMC_SDRAM flag
   *         This parameter can be any combination of the following values:
   *           @arg FMC_SDRAM_FLAG_REFRESH_ERROR
   * @retval None

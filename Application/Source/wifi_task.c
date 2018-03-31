@@ -703,7 +703,7 @@ bool WiFi_Ctrl_ConnectAP(void)
     /*-------------- Connect WiFi AP -----------------*/
     if(rtn_state == true)
     {
-        sprintf((char*)tx_buffer, "AT+CWJAP=%s,%s\r\n", app_config.wifi_ssid, app_config.wifi_passwd);
+        sprintf((char*)tx_buffer, "AT+CWJAP=\"%s\",\"%s\"\r\n", app_config.wifi_ssid, app_config.wifi_passwd);
         WiFi_SendCommand(tx_buffer);
         
         /* Receive rx_state until get result state or timeout */
@@ -978,11 +978,9 @@ bool WiFi_Ctrl_SendRespond(void)
             memset(&tx_buffer[MSG_RECOGNIZE_CODE_LEN+6], MSG_END_CODE, MSG_RECOGNIZE_CODE_LEN);
             
             WiFi_SendData(tx_buffer, MSG_RECOGNIZE_CODE_LEN+5);
-            if(respond.payload != NULL)
+            if(respond.length != 0)
             {
                 WiFi_SendData(respond.payload, respond.length);
-                vPortFree(respond.payload);
-                respond.payload = NULL;
             }
             WiFi_SendData(&tx_buffer[MSG_RECOGNIZE_CODE_LEN+5], MSG_RECOGNIZE_CODE_LEN+1);
             
@@ -998,15 +996,18 @@ bool WiFi_Ctrl_SendRespond(void)
                 }
             }
         }
-        
-        if(rtn_state == true)
+
+        if (rtn_state == true)
         {
             DBG_SendMessage(DBG_MSG_WIFI_RX, "\tWiFi Rx: Send Respond OK\r\n");
         }
         else
         {
             DBG_SendMessage(DBG_MSG_WIFI_RX, "\tWiFi Rx: Send Respond Failed\r\n");
-        }
+        }    
+
+        vPortFree(respond.payload);
+        respond.payload = NULL;
     }
     
     return rtn_state;

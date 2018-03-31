@@ -2,6 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_hal_dma2d.c
   * @author  MCD Application Team
+  * @version V1.7.1
+  * @date    14-April-2017
   * @brief   DMA2D HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the DMA2D peripheral:
@@ -157,21 +159,21 @@
 /** @defgroup DMA2D_Shifts DMA2D Shifts
   * @{
   */
-#define DMA2D_POSITION_FGPFCCR_CS     (uint32_t)DMA2D_FGPFCCR_CS_Pos    /*!< Required left shift to set foreground CLUT size */
-#define DMA2D_POSITION_BGPFCCR_CS     (uint32_t)DMA2D_BGPFCCR_CS_Pos    /*!< Required left shift to set background CLUT size */
+#define DMA2D_POSITION_FGPFCCR_CS     (uint32_t)POSITION_VAL(DMA2D_FGPFCCR_CS)    /*!< Required left shift to set foreground CLUT size */
+#define DMA2D_POSITION_BGPFCCR_CS     (uint32_t)POSITION_VAL(DMA2D_BGPFCCR_CS)    /*!< Required left shift to set background CLUT size */
 
-#define DMA2D_POSITION_FGPFCCR_CCM    (uint32_t)DMA2D_FGPFCCR_CCM_Pos   /*!< Required left shift to set foreground CLUT color mode */
-#define DMA2D_POSITION_BGPFCCR_CCM    (uint32_t)DMA2D_BGPFCCR_CCM_Pos   /*!< Required left shift to set background CLUT color mode */
+#define DMA2D_POSITION_FGPFCCR_CCM    (uint32_t)POSITION_VAL(DMA2D_FGPFCCR_CCM)   /*!< Required left shift to set foreground CLUT color mode */
+#define DMA2D_POSITION_BGPFCCR_CCM    (uint32_t)POSITION_VAL(DMA2D_BGPFCCR_CCM)   /*!< Required left shift to set background CLUT color mode */
 
-#define DMA2D_POSITION_AMTCR_DT       (uint32_t)DMA2D_AMTCR_DT_Pos      /*!< Required left shift to set deadtime value */
+#define DMA2D_POSITION_AMTCR_DT       (uint32_t)POSITION_VAL(DMA2D_AMTCR_DT)      /*!< Required left shift to set deadtime value */
 
-#define DMA2D_POSITION_FGPFCCR_AM     (uint32_t)DMA2D_FGPFCCR_AM_Pos    /*!< Required left shift to set foreground alpha mode */
-#define DMA2D_POSITION_BGPFCCR_AM     (uint32_t)DMA2D_BGPFCCR_AM_Pos    /*!< Required left shift to set background alpha mode */
+#define DMA2D_POSITION_FGPFCCR_AM     (uint32_t)POSITION_VAL(DMA2D_FGPFCCR_AM)    /*!< Required left shift to set foreground alpha mode */
+#define DMA2D_POSITION_BGPFCCR_AM     (uint32_t)POSITION_VAL(DMA2D_BGPFCCR_AM)    /*!< Required left shift to set background alpha mode */
 
-#define DMA2D_POSITION_FGPFCCR_ALPHA  (uint32_t)DMA2D_FGPFCCR_ALPHA_Pos /*!< Required left shift to set foreground alpha value */
-#define DMA2D_POSITION_BGPFCCR_ALPHA  (uint32_t)DMA2D_BGPFCCR_ALPHA_Pos /*!< Required left shift to set background alpha value */
+#define DMA2D_POSITION_FGPFCCR_ALPHA  (uint32_t)POSITION_VAL(DMA2D_FGPFCCR_ALPHA) /*!< Required left shift to set foreground alpha value */
+#define DMA2D_POSITION_BGPFCCR_ALPHA  (uint32_t)POSITION_VAL(DMA2D_BGPFCCR_ALPHA) /*!< Required left shift to set background alpha value */
 
-#define DMA2D_POSITION_NLR_PL         (uint32_t)DMA2D_NLR_PL_Pos        /*!< Required left shift to set pixels per lines value */
+#define DMA2D_POSITION_NLR_PL         (uint32_t)POSITION_VAL(DMA2D_NLR_PL)        /*!< Required left shift to set pixels per lines value */
 /**
   * @}
   */
@@ -216,7 +218,7 @@ static void DMA2D_SetConfig(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_
 /**
   * @brief  Initialize the DMA2D according to the specified
   *         parameters in the DMA2D_InitTypeDef and create the associated handle.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval HAL status
   */
@@ -266,7 +268,7 @@ HAL_StatusTypeDef HAL_DMA2D_Init(DMA2D_HandleTypeDef *hdma2d)
 /**
   * @brief  Deinitializes the DMA2D peripheral registers to their default reset
   *         values.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval None
   */
@@ -343,7 +345,7 @@ HAL_StatusTypeDef HAL_DMA2D_DeInit(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Initializes the DMA2D MSP.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval None
   */
@@ -359,7 +361,7 @@ __weak void HAL_DMA2D_MspInit(DMA2D_HandleTypeDef* hdma2d)
 
 /**
   * @brief  DeInitializes the DMA2D MSP.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval None
   */
@@ -413,15 +415,15 @@ __weak void HAL_DMA2D_MspDeInit(DMA2D_HandleTypeDef* hdma2d)
 
 /**
   * @brief  Start the DMA2D Transfer.
-  * @param  hdma2d     Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:     Pointer to a DMA2D_HandleTypeDef structure that contains
   *                     the configuration information for the DMA2D.
-  * @param  pdata      Configure the source memory Buffer address if 
+  * @param  pdata:      Configure the source memory Buffer address if 
   *                     Memory-to-Memory or Memory-to-Memory with pixel format
   *                     conversion mode is selected, or configure 
   *                     the color value if Register-to-Memory mode is selected.
-  * @param  DstAddress The destination memory Buffer address.
-  * @param  Width      The width of data to be transferred from source to destination (expressed in number of pixels per line).
-  * @param  Height     The height of data to be transferred from source to destination (expressed in number of lines).
+  * @param  DstAddress: The destination memory Buffer address.
+  * @param  Width:      The width of data to be transferred from source to destination (expressed in number of pixels per line).
+  * @param  Height:     The height of data to be transferred from source to destination (expressed in number of lines).
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
@@ -447,15 +449,15 @@ HAL_StatusTypeDef HAL_DMA2D_Start(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, u
 
 /**
   * @brief  Start the DMA2D Transfer with interrupt enabled.
-  * @param  hdma2d     Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:     Pointer to a DMA2D_HandleTypeDef structure that contains
   *                     the configuration information for the DMA2D.
-  * @param  pdata      Configure the source memory Buffer address if
+  * @param  pdata:      Configure the source memory Buffer address if
   *                     the Memory-to-Memory or Memory-to-Memory with pixel format
   *                     conversion mode is selected, or configure 
   *                     the color value if Register-to-Memory mode is selected.
-  * @param  DstAddress The destination memory Buffer address.
-  * @param  Width      The width of data to be transferred from source to destination (expressed in number of pixels per line).
-  * @param  Height     The height of data to be transferred from source to destination (expressed in number of lines).
+  * @param  DstAddress: The destination memory Buffer address.
+  * @param  Width:      The width of data to be transferred from source to destination (expressed in number of pixels per line).
+  * @param  Height:     The height of data to be transferred from source to destination (expressed in number of lines).
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
@@ -484,13 +486,13 @@ HAL_StatusTypeDef HAL_DMA2D_Start_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata
 
 /**
   * @brief  Start the multi-source DMA2D Transfer.
-  * @param  hdma2d      Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:      Pointer to a DMA2D_HandleTypeDef structure that contains
   *                      the configuration information for the DMA2D.
-  * @param  SrcAddress1 The source memory Buffer address for the foreground layer.
-  * @param  SrcAddress2 The source memory Buffer address for the background layer.
-  * @param  DstAddress  The destination memory Buffer address.
-  * @param  Width       The width of data to be transferred from source to destination (expressed in number of pixels per line).
-  * @param  Height      The height of data to be transferred from source to destination (expressed in number of lines).
+  * @param  SrcAddress1: The source memory Buffer address for the foreground layer.
+  * @param  SrcAddress2: The source memory Buffer address for the background layer.
+  * @param  DstAddress:  The destination memory Buffer address.
+  * @param  Width:       The width of data to be transferred from source to destination (expressed in number of pixels per line).
+  * @param  Height:      The height of data to be transferred from source to destination (expressed in number of lines).
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
@@ -519,13 +521,13 @@ HAL_StatusTypeDef HAL_DMA2D_BlendingStart(DMA2D_HandleTypeDef *hdma2d, uint32_t 
 
 /**
   * @brief  Start the multi-source DMA2D Transfer with interrupt enabled.
-  * @param  hdma2d     Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:     Pointer to a DMA2D_HandleTypeDef structure that contains
   *                     the configuration information for the DMA2D.
-  * @param  SrcAddress1 The source memory Buffer address for the foreground layer.
-  * @param  SrcAddress2 The source memory Buffer address for the background layer.
-  * @param  DstAddress  The destination memory Buffer address.
-  * @param  Width       The width of data to be transferred from source to destination (expressed in number of pixels per line).
-  * @param  Height      The height of data to be transferred from source to destination (expressed in number of lines).
+  * @param  SrcAddress1: The source memory Buffer address for the foreground layer.
+  * @param  SrcAddress2: The source memory Buffer address for the background layer.
+  * @param  DstAddress:  The destination memory Buffer address.
+  * @param  Width:       The width of data to be transferred from source to destination (expressed in number of pixels per line).
+  * @param  Height:      The height of data to be transferred from source to destination (expressed in number of lines).
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32_t SrcAddress1, uint32_t  SrcAddress2, uint32_t DstAddress, uint32_t Width,  uint32_t Height)
@@ -557,7 +559,7 @@ HAL_StatusTypeDef HAL_DMA2D_BlendingStart_IT(DMA2D_HandleTypeDef *hdma2d, uint32
 
 /**
   * @brief  Abort the DMA2D Transfer.
-  * @param  hdma2d  pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
   *                  the configuration information for the DMA2D.
   * @retval HAL status
   */
@@ -606,7 +608,7 @@ HAL_StatusTypeDef HAL_DMA2D_Abort(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Suspend the DMA2D Transfer.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval HAL status
   */
@@ -656,7 +658,7 @@ HAL_StatusTypeDef HAL_DMA2D_Suspend(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Resume the DMA2D Transfer.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval HAL status
   */
@@ -680,9 +682,9 @@ HAL_StatusTypeDef HAL_DMA2D_Resume(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Enable the DMA2D CLUT Transfer.
-  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:   Pointer to a DMA2D_HandleTypeDef structure that contains
   *                   the configuration information for the DMA2D.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -714,11 +716,11 @@ HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t Lay
 
 /**
   * @brief  Start DMA2D CLUT Loading.
-  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:   Pointer to a DMA2D_HandleTypeDef structure that contains
   *                   the configuration information for the DMA2D.
-  * @param  CLUTCfg  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+  * @param  CLUTCfg:  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
   *                   the configuration information for the color look up table.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @note Invoking this API is similar to calling HAL_DMA2D_ConfigCLUT() then HAL_DMA2D_EnableCLUT().
@@ -769,11 +771,11 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgT
 
 /**
   * @brief  Start DMA2D CLUT Loading with interrupt enabled.
-  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:   Pointer to a DMA2D_HandleTypeDef structure that contains
   *                   the configuration information for the DMA2D.
-  * @param  CLUTCfg  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+  * @param  CLUTCfg:  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
   *                   the configuration information for the color look up table.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -829,9 +831,9 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTC
 
 /**
   * @brief  Abort the DMA2D CLUT loading.
-  * @param  hdma2d  Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d : Pointer to a DMA2D_HandleTypeDef structure that contains
   *                  the configuration information for the DMA2D.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground) 
   * @retval HAL status
@@ -885,9 +887,9 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Abort(DMA2D_HandleTypeDef *hdma2d, uint3
 
 /**
   * @brief  Suspend the DMA2D CLUT loading.
-  * @param  hdma2d Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: Pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -942,9 +944,9 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Suspend(DMA2D_HandleTypeDef *hdma2d, uin
 
 /**
   * @brief  Resume the DMA2D CLUT loading.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -981,9 +983,9 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoading_Resume(DMA2D_HandleTypeDef *hdma2d, uint
 
 /**
   * @brief  Polling for transfer complete or CLUT loading.
-  * @param  hdma2d Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: Pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
-  * @param  Timeout Timeout duration
+  * @param  Timeout: Timeout duration
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_PollForTransfer(DMA2D_HandleTypeDef *hdma2d, uint32_t Timeout)
@@ -1108,7 +1110,7 @@ HAL_StatusTypeDef HAL_DMA2D_PollForTransfer(DMA2D_HandleTypeDef *hdma2d, uint32_
 }
 /**
   * @brief  Handle DMA2D interrupt request.
-  * @param  hdma2d Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: Pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval HAL status
   */
@@ -1268,7 +1270,7 @@ void HAL_DMA2D_IRQHandler(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Transfer watermark callback.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval None
   */
@@ -1284,7 +1286,7 @@ __weak void HAL_DMA2D_LineEventCallback(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  CLUT Transfer Complete callback.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval None
   */
@@ -1323,9 +1325,9 @@ __weak void HAL_DMA2D_CLUTLoadingCpltCallback(DMA2D_HandleTypeDef *hdma2d)
 /**
   * @brief  Configure the DMA2D Layer according to the specified
   *         parameters in the DMA2D_InitTypeDef and create the associated handle.
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -1406,11 +1408,11 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t La
 
 /**
   * @brief  Configure the DMA2D CLUT Transfer.
-  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:   Pointer to a DMA2D_HandleTypeDef structure that contains
   *                   the configuration information for the DMA2D.
-  * @param  CLUTCfg  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+  * @param  CLUTCfg:  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
   *                   the configuration information for the color look up table.
-  * @param  LayerIdx DMA2D Layer index.
+  * @param  LayerIdx: DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   0(background) / 1(foreground)
   * @retval HAL status
@@ -1460,9 +1462,9 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCf
 
 /**
   * @brief  Configure the line watermark.
-  * @param  hdma2d Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: Pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
-  * @param  Line   Line Watermark configuration (maximum 16-bit long value expected).
+  * @param  Line:   Line Watermark configuration (maximum 16-bit long value expected).
   * @note   HAL_DMA2D_ProgramLineEvent() API enables the transfer watermark interrupt.
   * @note   The transfer watermark interrupt is disabled once it has occurred.
   * @retval HAL status
@@ -1503,7 +1505,7 @@ HAL_StatusTypeDef HAL_DMA2D_ProgramLineEvent(DMA2D_HandleTypeDef *hdma2d, uint32
 
 /**
   * @brief Enable DMA2D dead time feature.
-  * @param hdma2d DMA2D handle.
+  * @param hdma2d: DMA2D handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_EnableDeadTime(DMA2D_HandleTypeDef *hdma2d)
@@ -1526,7 +1528,7 @@ HAL_StatusTypeDef HAL_DMA2D_EnableDeadTime(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief Disable DMA2D dead time feature.
-  * @param hdma2d DMA2D handle.
+  * @param hdma2d: DMA2D handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_DisableDeadTime(DMA2D_HandleTypeDef *hdma2d)
@@ -1551,8 +1553,8 @@ HAL_StatusTypeDef HAL_DMA2D_DisableDeadTime(DMA2D_HandleTypeDef *hdma2d)
   * @brief Configure dead time.
   * @note The dead time value represents the guaranteed minimum number of cycles between
   *       two consecutive transactions on the AHB bus.
-  * @param hdma2d DMA2D handle.
-  * @param DeadTime dead time value.
+  * @param hdma2d: DMA2D handle.
+  * @param DeadTime: dead time value.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t DeadTime)
@@ -1595,7 +1597,7 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigDeadTime(DMA2D_HandleTypeDef *hdma2d, uint8_t 
 
 /**
   * @brief  Return the DMA2D state
-  * @param  hdma2d pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d: pointer to a DMA2D_HandleTypeDef structure that contains
   *                 the configuration information for the DMA2D.
   * @retval HAL state
   */
@@ -1606,7 +1608,7 @@ HAL_DMA2D_StateTypeDef HAL_DMA2D_GetState(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Return the DMA2D error code
-  * @param  hdma2d  pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d : pointer to a DMA2D_HandleTypeDef structure that contains
   *               the configuration information for DMA2D.
   * @retval DMA2D Error Code
   */
@@ -1629,12 +1631,12 @@ uint32_t HAL_DMA2D_GetError(DMA2D_HandleTypeDef *hdma2d)
 
 /**
   * @brief  Set the DMA2D transfer parameters.
-  * @param  hdma2d     Pointer to a DMA2D_HandleTypeDef structure that contains
+  * @param  hdma2d:     Pointer to a DMA2D_HandleTypeDef structure that contains
   *                     the configuration information for the specified DMA2D.
-  * @param  pdata      The source memory Buffer address
-  * @param  DstAddress The destination memory Buffer address
-  * @param  Width      The width of data to be transferred from source to destination.
-  * @param  Height     The height of data to be transferred from source to destination.
+  * @param  pdata:      The source memory Buffer address
+  * @param  DstAddress: The destination memory Buffer address
+  * @param  Width:      The width of data to be transferred from source to destination.
+  * @param  Height:     The height of data to be transferred from source to destination.
   * @retval HAL status
   */
 static void DMA2D_SetConfig(DMA2D_HandleTypeDef *hdma2d, uint32_t pdata, uint32_t DstAddress, uint32_t Width, uint32_t Height)

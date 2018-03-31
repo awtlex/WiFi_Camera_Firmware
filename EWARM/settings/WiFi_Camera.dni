@@ -14,7 +14,7 @@ LeaveTargetRunning=_ 0
 stlinkserialNo=34460887
 stlinkfoundProbes=
 [DebugChecksum]
-Checksum=-321850883
+Checksum=-1264503812
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -90,9 +90,19 @@ LeaveTargetRunning=_ 0
 TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
+[Trace1]
+Enabled=0
+ShowSource=1
+[DriverProfiling]
+Enabled=0
+Mode=1
+Graph=0
+Symbiont=0
+Exclusions=
 [struct_types]
-Fmt0=Client_Ota_t-fw_crc16	4	0
-Fmt1=Client_Ota_t-fw_size	3	0
+Fmt0=Client_Message_t-command	4	0
+Fmt1=Client_Ota_t-fw_crc16	4	0
+Fmt2=Client_Ota_t-fw_size	3	0
 [array_types]
 Fmt0=int8_t[5]	4	0
 Fmt1=uint32_t[7]	4	0
@@ -101,9 +111,6 @@ Fmt3=uint8_t[40960]	4	0
 [watch_formats]
 Fmt0={W}1:VTOR	4	0
 Fmt1={W}2:client_id_active	4	0
-[Trace1]
-Enabled=0
-ShowSource=1
 [Log file]
 LoggingEnabled=_ 0
 LogFile=_ ""
@@ -111,12 +118,6 @@ Category=_ 0
 [TermIOLog]
 LoggingEnabled=_ 0
 LogFile=_ ""
-[DriverProfiling]
-Enabled=0
-Mode=1
-Graph=0
-Symbiont=0
-Exclusions=
 [CallStackLog]
 Enabled=0
 [CallStackStripe]
@@ -124,7 +125,10 @@ ShowTiming=1
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Count=0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Application\Source\wifi_task.c}.704.5" 0 0 1 "" 0 "" 0
+Bp1=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Application\Source\wifi_task.c}.684.5" 0 0 1 "" 0 "" 0
+Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Application\Source\wifi_task.c}.728.5" 0 0 1 "" 0 "" 0
+Count=3
 [Aliases]
 Count=0
 SuppressDialog=0

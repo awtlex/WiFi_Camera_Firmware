@@ -2,6 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_ll_fsmc.c
   * @author  MCD Application Team
+  * @version V1.7.1
+  * @date    14-April-2017
   * @brief   FSMC Low Layer HAL module driver.
   *    
   *          This file provides firmware functions to manage the following 
@@ -138,8 +140,8 @@
 /**
   * @brief  Initialize the FSMC_NORSRAM device according to the specified
   *         control parameters in the FSMC_NORSRAM_InitTypeDef
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  Init Pointer to NORSRAM Initialization structure   
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  Init: Pointer to NORSRAM Initialization structure   
   * @retval HAL status
   */
 HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device, FSMC_NORSRAM_InitTypeDef* Init)
@@ -246,9 +248,9 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Init(FSMC_NORSRAM_TypeDef *Device, FSMC_NORSRAM_
 
 /**
   * @brief  DeInitialize the FSMC_NORSRAM peripheral 
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  ExDevice Pointer to NORSRAM extended mode device instance  
-  * @param  Bank NORSRAM bank number  
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  ExDevice: Pointer to NORSRAM extended mode device instance  
+  * @param  Bank: NORSRAM bank number  
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_DeInit(FSMC_NORSRAM_TypeDef *Device, FSMC_NORSRAM_EXTENDED_TypeDef *ExDevice, uint32_t Bank)
@@ -283,9 +285,9 @@ HAL_StatusTypeDef FSMC_NORSRAM_DeInit(FSMC_NORSRAM_TypeDef *Device, FSMC_NORSRAM
 /**
   * @brief  Initialize the FSMC_NORSRAM Timing according to the specified
   *         parameters in the FSMC_NORSRAM_TimingTypeDef
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  Timing Pointer to NORSRAM Timing structure
-  * @param  Bank NORSRAM bank number  
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  Timing: Pointer to NORSRAM Timing structure
+  * @param  Bank: NORSRAM bank number  
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device, FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank)
@@ -338,9 +340,9 @@ HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device, FSMC_NO
 /**
   * @brief  Initialize the FSMC_NORSRAM Extended mode Timing according to the specified
   *         parameters in the FSMC_NORSRAM_TimingTypeDef
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  Timing Pointer to NORSRAM Timing structure
-  * @param  Bank NORSRAM bank number  
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  Timing: Pointer to NORSRAM Timing structure
+  * @param  Bank: NORSRAM bank number  
   * @retval HAL status
   */
 HAL_StatusTypeDef  FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeDef *Device, FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank, uint32_t ExtendedMode)
@@ -405,8 +407,8 @@ HAL_StatusTypeDef  FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeD
     
 /**
   * @brief  Enables dynamically FSMC_NORSRAM write operation.
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  Bank NORSRAM bank number   
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  Bank: NORSRAM bank number   
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_WriteOperation_Enable(FSMC_NORSRAM_TypeDef *Device, uint32_t Bank)
@@ -423,8 +425,8 @@ HAL_StatusTypeDef FSMC_NORSRAM_WriteOperation_Enable(FSMC_NORSRAM_TypeDef *Devic
 
 /**
   * @brief  Disables dynamically FSMC_NORSRAM write operation.
-  * @param  Device Pointer to NORSRAM device instance
-  * @param  Bank NORSRAM bank number   
+  * @param  Device: Pointer to NORSRAM device instance
+  * @param  Bank: NORSRAM bank number   
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_WriteOperation_Disable(FSMC_NORSRAM_TypeDef *Device, uint32_t Bank)
@@ -492,8 +494,8 @@ HAL_StatusTypeDef FSMC_NORSRAM_WriteOperation_Disable(FSMC_NORSRAM_TypeDef *Devi
 /**
   * @brief  Initializes the FSMC_NAND device according to the specified
   *         control parameters in the FSMC_NAND_HandleTypeDef
-  * @param  Device Pointer to NAND device instance
-  * @param  Init Pointer to NAND Initialization structure
+  * @param  Device: Pointer to NAND device instance
+  * @param  Init: Pointer to NAND Initialization structure
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_InitTypeDef *Init)
@@ -551,9 +553,9 @@ HAL_StatusTypeDef FSMC_NAND_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_InitTypeDe
 /**
   * @brief  Initializes the FSMC_NAND Common space Timing according to the specified
   *         parameters in the FSMC_NAND_PCC_TimingTypeDef
-  * @param  Device Pointer to NAND device instance
-  * @param  Timing Pointer to NAND timing structure
-  * @param  Bank NAND bank number   
+  * @param  Device: Pointer to NAND device instance
+  * @param  Timing: Pointer to NAND timing structure
+  * @param  Bank: NAND bank number   
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_CommonSpace_Timing_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
@@ -605,9 +607,9 @@ HAL_StatusTypeDef FSMC_NAND_CommonSpace_Timing_Init(FSMC_NAND_TypeDef *Device, F
 /**
   * @brief  Initializes the FSMC_NAND Attribute space Timing according to the specified
   *         parameters in the FSMC_NAND_PCC_TimingTypeDef
-  * @param  Device Pointer to NAND device instance
-  * @param  Timing Pointer to NAND timing structure
-  * @param  Bank NAND bank number 
+  * @param  Device: Pointer to NAND device instance
+  * @param  Timing: Pointer to NAND timing structure
+  * @param  Bank: NAND bank number 
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_AttributeSpace_Timing_Init(FSMC_NAND_TypeDef *Device, FSMC_NAND_PCC_TimingTypeDef *Timing, uint32_t Bank)
@@ -658,8 +660,8 @@ HAL_StatusTypeDef FSMC_NAND_AttributeSpace_Timing_Init(FSMC_NAND_TypeDef *Device
 
 /**
   * @brief  DeInitializes the FSMC_NAND device 
-  * @param  Device Pointer to NAND device instance
-  * @param  Bank NAND bank number
+  * @param  Device: Pointer to NAND device instance
+  * @param  Bank: NAND bank number
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_DeInit(FSMC_NAND_TypeDef *Device, uint32_t Bank)
@@ -709,8 +711,8 @@ HAL_StatusTypeDef FSMC_NAND_DeInit(FSMC_NAND_TypeDef *Device, uint32_t Bank)
     
 /**
   * @brief  Enables dynamically FSMC_NAND ECC feature.
-  * @param  Device Pointer to NAND device instance
-  * @param  Bank NAND bank number
+  * @param  Device: Pointer to NAND device instance
+  * @param  Bank: NAND bank number
   * @retval HAL status
   */    
 HAL_StatusTypeDef  FSMC_NAND_ECC_Enable(FSMC_NAND_TypeDef *Device, uint32_t Bank)
@@ -730,8 +732,8 @@ HAL_StatusTypeDef  FSMC_NAND_ECC_Enable(FSMC_NAND_TypeDef *Device, uint32_t Bank
 
 /**
   * @brief  Disables dynamically FSMC_NAND ECC feature.
-  * @param  Device Pointer to NAND device instance
-  * @param  Bank NAND bank number
+  * @param  Device: Pointer to NAND device instance
+  * @param  Bank: NAND bank number
   * @retval HAL status
   */  
 HAL_StatusTypeDef FSMC_NAND_ECC_Disable(FSMC_NAND_TypeDef *Device, uint32_t Bank)  
@@ -751,10 +753,10 @@ HAL_StatusTypeDef FSMC_NAND_ECC_Disable(FSMC_NAND_TypeDef *Device, uint32_t Bank
 
 /**
   * @brief  Disables dynamically FSMC_NAND ECC feature.
-  * @param  Device Pointer to NAND device instance
-  * @param  ECCval Pointer to ECC value
-  * @param  Bank NAND bank number
-  * @param  Timeout Timeout wait value  
+  * @param  Device: Pointer to NAND device instance
+  * @param  ECCval: Pointer to ECC value
+  * @param  Bank: NAND bank number
+  * @param  Timeout: Timeout wait value  
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NAND_GetECC(FSMC_NAND_TypeDef *Device, uint32_t *ECCval, uint32_t Bank, uint32_t Timeout)
@@ -847,8 +849,8 @@ HAL_StatusTypeDef FSMC_NAND_GetECC(FSMC_NAND_TypeDef *Device, uint32_t *ECCval, 
 /**
   * @brief  Initializes the FSMC_PCCARD device according to the specified
   *         control parameters in the FSMC_PCCARD_HandleTypeDef
-  * @param  Device Pointer to PCCARD device instance
-  * @param  Init Pointer to PCCARD Initialization structure   
+  * @param  Device: Pointer to PCCARD device instance
+  * @param  Init: Pointer to PCCARD Initialization structure   
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, FSMC_PCCARD_InitTypeDef *Init)
@@ -881,8 +883,8 @@ HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, FSMC_PCCARD_Init
 /**
   * @brief  Initializes the FSMC_PCCARD Common space Timing according to the specified
   *         parameters in the FSMC_NAND_PCC_TimingTypeDef
-  * @param  Device Pointer to PCCARD device instance
-  * @param  Timing Pointer to PCCARD timing structure 
+  * @param  Device: Pointer to PCCARD device instance
+  * @param  Timing: Pointer to PCCARD timing structure 
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device, FSMC_NAND_PCC_TimingTypeDef *Timing)
@@ -915,8 +917,8 @@ HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Devic
 /**
   * @brief  Initializes the FSMC_PCCARD Attribute space Timing according to the specified
   *         parameters in the FSMC_NAND_PCC_TimingTypeDef
-  * @param  Device Pointer to PCCARD device instance
-  * @param  Timing Pointer to PCCARD timing structure  
+  * @param  Device: Pointer to PCCARD device instance
+  * @param  Timing: Pointer to PCCARD timing structure  
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device, FSMC_NAND_PCC_TimingTypeDef *Timing)
@@ -949,8 +951,8 @@ HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *De
 /**
   * @brief  Initializes the FSMC_PCCARD IO space Timing according to the specified
   *         parameters in the FSMC_NAND_PCC_TimingTypeDef
-  * @param  Device Pointer to PCCARD device instance
-  * @param  Timing Pointer to PCCARD timing structure  
+  * @param  Device: Pointer to PCCARD device instance
+  * @param  Timing: Pointer to PCCARD timing structure  
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_IOSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device, FSMC_NAND_PCC_TimingTypeDef *Timing)
@@ -983,7 +985,7 @@ HAL_StatusTypeDef FSMC_PCCARD_IOSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device, F
                                            
 /**
   * @brief  DeInitializes the FSMC_PCCARD device 
-  * @param  Device Pointer to PCCARD device instance
+  * @param  Device: Pointer to PCCARD device instance
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_PCCARD_DeInit(FSMC_PCCARD_TypeDef *Device)
