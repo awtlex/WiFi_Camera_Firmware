@@ -65,25 +65,25 @@ void Client_FeedbackError(void);
 
 /*******************************************************************************
 * @Brief   Client Communication Task
-* @Param
-* @Note
-* @Return
+* @Param   
+* @Note    
+* @Return  
 *******************************************************************************/
 void Client_CommTask(void * argument)
 {
     /* Create client queue and register queue for debug */
     request_queue = xQueueCreate(CLIENT_QUEUE_LENGTH, CLIENT_QUEUE_ITEM_SIZE);
     vQueueAddToRegistry( request_queue, "Request Queue" );
-
+    
     respond_queue = xQueueCreate(CLIENT_QUEUE_LENGTH, CLIENT_QUEUE_ITEM_SIZE);
     vQueueAddToRegistry( respond_queue, "Respond Queue" );
-
+    
     DBG_SendMessage(DBG_MSG_TASK_STATE, "Client Task Start\r\n");
-
-    for (;;)
+    
+    for(;;)
     {
         /* Receive rx_state until get result state or timeout */
-        if ( xQueueReceive(request_queue, &message, (TickType_t) CLIENT_QUEUE_TIMEUOT))
+        if( xQueueReceive(request_queue, &message, (TickType_t) CLIENT_QUEUE_TIMEUOT))
         {
             /* Process request */
             Client_RequestHandler();
@@ -104,77 +104,77 @@ bool Client_DataAnalyzer(uint8_t *data, Client_Message_t *msg)
     uint16_t i = 0;
     uint16_t temp = 0;
     uint8_t checksum = 0;
-
+    
     memset(msg, 0, sizeof(Client_Message_t));
-
+    
     /* Find start code */
-    for (i = 0; i < MSG_BUFFER_SIZE; i++)
+    for(i = 0; i < MSG_BUFFER_SIZE; i++)
     {
         (data[i] == MSG_START_CODE) ? (temp++) : (temp = 0);
-
-        /* Find start code success */
-        if (temp >= MSG_RECOGNIZE_CODE_LEN)
+        
+        /* Find start code success */  
+        if(temp >= MSG_RECOGNIZE_CODE_LEN)
         {
             i += 1;
             break;
         }
     }
-
-    if (i < MSG_BUFFER_SIZE)
+        
+    if(i < MSG_BUFFER_SIZE)
     {
         /* Load data */
         msg->command = data[i];
-        msg->index = data[i + 1] + (data[i + 2] << 8);
-        msg->length = data[i + 3] + (data[i + 4] << 8);
+        msg->index = data[i+1] + (data[i+2] << 8);
+        msg->length = data[i+3] + (data[i+4] << 8);
         //msg->payload = &data[i+5];
-        msg->checksum = data[i + 5 + msg->length];
-
+        msg->checksum = data[i+5+msg->length];
+        
         /* Validate checksum */
         checksum = Mem_GetChecksum8(0, &data[i], msg->length + 5);
-        if (checksum == msg->checksum)
+        if(checksum == msg->checksum) 
         {
-            if (msg->length == 0)
+            if(msg->length == 0)
             {
                 msg->payload = NULL;
                 ret = true;
             }
-            else if ((msg->length > 0) && (msg->length <= MSG_MAX_RX_PAYLOAD))
+            else if((msg->length > 0) && (msg->length <= MSG_MAX_RX_PAYLOAD))
             {
                 msg->payload = (uint8_t *)pvPortMalloc(msg->length);
-                memcpy(msg->payload, &data[i + 5], msg->length);
+                memcpy(msg->payload, &data[i+5], msg->length);
                 ret = true;
             }
         }
     }
-
-    if (ret == false)
+        
+    if(ret == false)
     {
         msg->command = MSG_FB_ERROR;
         msg->payload = NULL;
     }
-
+    
     return ret;
 }
 
 /*******************************************************************************
 * @Brief   Command Request Handler
 * @Param   request[in]: request string from client
-* @Note    process client request and respond
-* @Return
+* @Note    process client request and respond 
+* @Return  
 *******************************************************************************/
 void Client_RequestHandler(void)
-{
+{           
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Request Receive\r\n");
     memset(&feedback, 0, sizeof(Client_Message_t));
 
-    switch (message.command)
+    switch(message.command)
     {
     case MSG_GET_MAC:       //------------------------- Get command
         Client_GetMacAddress();
-        break;
+        break;      
     case MSG_GET_IMAGE:
         Client_GetCameraImage();
-        break;
+        break;        
     case MSG_GET_STATE:
         Client_GetState();
         break;
@@ -200,18 +200,18 @@ void Client_RequestHandler(void)
     case MSG_SET_SCH:
         Client_SetSchedule();
         break;
-
+        
 #if 0 /* Push command not receive, are push by device */
     case MSG_PUSH_IMAGE:    //------------------------- Push command
         Client_PushImage();
         break;
-    case MSG_PUSH_ACCOUNT:
+    case MSG_PUSH_ACCOUNT: 
         Client_PushWebAccount();
         break;
     case MSG_PUSH_ALARM:
         Client_PushAlarm();
         break;
-#endif
+#endif    
     case MSG_OTA_REQUEST:   //------------------------- OTA command
         Client_OtaUpdateRequest();
         break;
@@ -221,45 +221,44 @@ void Client_RequestHandler(void)
     case MSG_OTA_VERIFY:
         Client_OtaVerify();
         break;
-
+        
     case MSG_FACTORY_NEW:   //------------------------- Factory New command
         Client_FactoryNew();
         break;
-
+            
     case MSG_FB_OK:         //------------------------- Push Feedback command
         Client_FeedbackOK();
         break;
 
     case MSG_FB_ERROR:
         Client_FeedbackError();
-        break;
-
+        break; 
+        
     default:
         Client_RespondHandler( MSG_FB_ERROR );
         break;
     }
-
+    
     /* Free payload memory */
     vPortFree(message.payload);
-    message.payload = NULL;
 }
 
 /*******************************************************************************
 * @Brief   Command Respond Handler
 * @Param   state[in]: respond state
 * @Note    build repond message and send back to client
-* @Return
+* @Return  
 *******************************************************************************/
 void Client_RespondHandler(uint8_t state)
-{
+{                
     Disp_Request_t disp_req;
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Respond Post\r\n");
-
-    if (state == MSG_FB_OK)
+        
+    if(state == MSG_FB_OK)
     {
         sprintf(disp_req.message2, "CMD:%02X OK", message.command);
     }
-    else  if (state == MSG_FB_UPDATED)
+    else  if(state == MSG_FB_UPDATED)
     {
         sprintf(disp_req.message2, "CMD:%02X Updated", message.command);
     }
@@ -271,24 +270,24 @@ void Client_RespondHandler(uint8_t state)
         feedback.payload = NULL;
         sprintf(disp_req.message2, "CMD:%02X Error", message.command);
     }
-
+        
     /* Send respond message to client */
     feedback.client_id = message.client_id;
     feedback.command = state;
     /* index, length, payload fill by handler */
     feedback.checksum = Mem_GetChecksum8(0, (uint8_t *)&feedback.command, 5);
-    if (feedback.payload != NULL)
+    if(feedback.payload != NULL)
     {
-        feedback.checksum = Mem_GetChecksum8(feedback.checksum, (uint8_t *)&feedback.payload, feedback.length);
+        feedback.checksum = Mem_GetChecksum8(feedback.checksum, feedback.payload, feedback.length);
     }
-    xQueueSend(respond_queue, &feedback, 0 );
-
+    xQueueSend(respond_queue, &feedback, 0 ); 
+    
     /* Send message to lcd display task */
     disp_req.source = DISP_DBG_CLIENT;
     disp_req.show_line1 = true;
-    disp_req.show_line2 = true;
+    disp_req.show_line2 = true;      
     sprintf(disp_req.message1, "DBG: TCP");
-    xQueueSend(display_queue, &disp_req, 0 );
+    xQueueSend(display_queue, &disp_req, 0 ); 
 }
 
 /*******************************************************************************/
@@ -301,7 +300,7 @@ void Client_GetMacAddress(void)
     feedback.index = 0;
     feedback.length = 18;
     feedback.payload = (uint8_t *)pvPortMalloc(18);
-    for (i = 0; i < 18; i++)
+    for(i = 0; i < 18; i++)
     {
         feedback.payload[i] = wifi_mac_string[i];
     }
@@ -312,10 +311,6 @@ void Client_GetMacAddress(void)
 void Client_GetCameraImage(void)
 {
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get Camera Image\r\n");
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
     Client_RespondHandler( MSG_FB_OK );
     xEventGroupSetBits( camera_event_group, CAMERA_EVENT_PHOTO_START);
 }
@@ -326,7 +321,6 @@ void Client_GetState(void)
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get State\r\n");
     feedback.index = 0;
     feedback.length = 5;
-    vPortFree(feedback.payload);
     feedback.payload = (uint8_t *)pvPortMalloc(5);
     feedback.payload[0] = 0;
     feedback.payload[1] = 0;
@@ -334,7 +328,7 @@ void Client_GetState(void)
     feedback.payload[3] = 1;
     feedback.payload[4] = 0;
     Client_RespondHandler( MSG_FB_OK );
-
+    
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -344,7 +338,6 @@ void Client_GetFirmwareVersion(void)
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Get Version\r\n");
     feedback.index = 0;
     feedback.length = 2;
-    vPortFree(feedback.payload);
     feedback.payload = (uint8_t *)pvPortMalloc(2);
     feedback.payload[0] = (uint8_t)(APP_VERSION & 0xFF);
     feedback.payload[1] = (uint8_t)((APP_VERSION >> 8) & 0xFF);
@@ -371,33 +364,33 @@ void Client_SetWebAccount(void)
     uint8_t port_len = 0;
     uint8_t id_len = 0;
     uint8_t passwd_len = 0;
-
+    
     server_len = message.payload[0];
     port_len = message.payload[1];
     id_len = message.payload[2];
     passwd_len = message.payload[3];
-    if ((message.length == (4 + server_len + port_len + id_len + passwd_len)) &&
-            (server_len <= 64) && (port_len <= 2) && (id_len <= 32) && (passwd_len <= 32))
-    {
+    if((message.length == (4 + server_len + port_len + id_len + passwd_len)) && 
+        (server_len <= 64) && (port_len <= 2) && (id_len <= 32) && (passwd_len <= 32))
+    {       
         memset(app_config.cloud_server, 0, 64);
         app_config.cloud_port = 0;
         memset(app_config.account_id, 0, 32);
         memset(app_config.account_passwd, 0, 32);
-
-        for (i = 0; i < server_len; i++)
+        
+        for(i = 0; i < server_len; i++)
         {
             app_config.cloud_server[i] = message.payload[i + 4];
         }
         app_config.cloud_port = message.payload[server_len + 4] + (message.payload[server_len + 5] << 8);
-        for (i = 0; i < id_len; i++)
+        for(i = 0; i < id_len; i++)
         {
             app_config.account_id[i] = message.payload[i + server_len + port_len + 4];
         }
-        for (i = 0; i < passwd_len; i++)
+        for(i = 0; i < passwd_len; i++)
         {
             app_config.account_passwd[i] = message.payload[i + server_len + port_len + id_len + 4];
         }
-
+        
         app_config.cloud_config_state = APP_CONFIG_OK;
         if(app_config.wifi_config_state == APP_CONFIG_OK)
         {
@@ -406,11 +399,6 @@ void Client_SetWebAccount(void)
         }
         Mem_WriteConfig();
         DBG_SendMessage(DBG_MSG_CLIENT, "Client: Set Account OK\r\n");
-
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
         Client_RespondHandler( MSG_FB_OK );
         
         if(app_config.esp8266_mode == APP_ESP8266_STATION)
@@ -461,10 +449,6 @@ void Client_SetWifi(void)
         }
         Mem_WriteConfig();
         DBG_SendMessage(DBG_MSG_CLIENT, "Client: Set WiFi OK\r\n");
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
         Client_RespondHandler( MSG_FB_OK );
         
         if(app_config.esp8266_mode == APP_ESP8266_STATION)
@@ -497,11 +481,7 @@ void Client_SetMotor(void)
         }
         Mem_WriteConfig();
         DBG_SendMessage(DBG_MSG_CLIENT, "Client: Set Motor OK\r\n");
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
-        Client_RespondHandler( MSG_FB_OK );
+        Client_RespondHandler( MSG_FB_OK );        
     }
     else
     {
@@ -532,10 +512,6 @@ void Client_SetTime(void)
     {
         HAL_RTCEx_BKUPWrite(&hrtc,RTC_BKP_DR0,0x32F2);
         DBG_SendMessage(DBG_MSG_CLIENT, "Client: Set RTC OK\r\n");
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
         Client_RespondHandler( MSG_FB_OK );
     }
     else
@@ -565,11 +541,7 @@ void Client_SetSchedule(void)
         }
         Mem_WriteConfig();
         DBG_SendMessage(DBG_MSG_CLIENT, "Client:Set Feed Schedule OK\r\n");
-        vPortFree(feedback.payload);
-        feedback.index = 0;
-        feedback.length = 0;
-        feedback.payload = NULL;
-        Client_RespondHandler( MSG_FB_OK );
+        Client_RespondHandler( MSG_FB_OK );        
     }
     else
     {
@@ -582,10 +554,6 @@ void Client_SetSchedule(void)
 void Client_PushImage(void)
 {
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Push Image\r\n");
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -593,10 +561,6 @@ void Client_PushImage(void)
 void Client_PushWebAccount(void)
 {
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Push Web Account\r\n");
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -604,10 +568,6 @@ void Client_PushWebAccount(void)
 void Client_PushAlarm(void)
 {
     DBG_SendMessage(DBG_MSG_CLIENT, "Client: Push Alarm\r\n");
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -617,11 +577,9 @@ void Client_OtaUpdateRequest(void)
     uint16_t fw_ver = 0;
     memset(&ota_info, 0, sizeof(ota_info));
     vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
-
-    if ((message.length == 2) && (message.payload != NULL))
+    memset(&feedback, 0, sizeof(feedback));
+    
+    if((message.length == 2) && (message.payload != NULL))
     {
         fw_ver = message.payload[0] + (message.payload[1] << 8);
         if(fw_ver > APP_VERSION)
@@ -677,11 +635,7 @@ void Client_OtaBinData(void)
         Mem_WriteApp(OTA_ADDR_START + ota_info.write_length, (uint8_t *)message.payload, message.length);        
         ota_info.write_length += message.length;
     }
-
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
+    
     Client_RespondHandler( MSG_FB_OK );
 }
 
@@ -740,10 +694,6 @@ void Client_FactoryNew(void)
         app_config.motor_cfg.m_step[i] = MOTOR_DEFAULT_STEP;
     }
     Mem_WriteConfig();
-    vPortFree(feedback.payload);
-    feedback.index = 0;
-    feedback.length = 0;
-    feedback.payload = NULL;
     Client_RespondHandler( MSG_FB_OK );
     
     /* delay 1 second and reboot */

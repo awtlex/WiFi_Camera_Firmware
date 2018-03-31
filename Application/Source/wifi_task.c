@@ -996,18 +996,18 @@ bool WiFi_Ctrl_SendRespond(void)
                 }
             }
         }
-
-        if (rtn_state == true)
+        
+        /* free payload memory to avoid stack overflow */
+        vPortFree(respond.payload);
+        
+        if(rtn_state == true)
         {
             DBG_SendMessage(DBG_MSG_WIFI_RX, "\tWiFi Rx: Send Respond OK\r\n");
         }
         else
         {
             DBG_SendMessage(DBG_MSG_WIFI_RX, "\tWiFi Rx: Send Respond Failed\r\n");
-        }    
-
-        vPortFree(respond.payload);
-        respond.payload = NULL;
+        }
     }
     
     return rtn_state;
