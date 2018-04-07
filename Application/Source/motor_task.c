@@ -91,11 +91,11 @@ void Motor_ControlTask(void * argument)
                 motor_group.motor4.period = (uint16_t)(MOTOR_TIMER_FREQ / (app_config.motor_cfg.m_freq[3] * 2));
                 motor_group.motor5.period = (uint16_t)(MOTOR_TIMER_FREQ / (app_config.motor_cfg.m_freq[4] * 2));
 
-                motor_group.motor1.step += app_config.schedule[schedule_index].feed_m1 * app_config.motor_cfg.m_step[0];
-                motor_group.motor2.step += app_config.schedule[schedule_index].feed_m2 * app_config.motor_cfg.m_step[1];
-                motor_group.motor3.step += app_config.schedule[schedule_index].feed_m3 * app_config.motor_cfg.m_step[2];
-                motor_group.motor4.step += app_config.schedule[schedule_index].feed_m4 * app_config.motor_cfg.m_step[3];
-                motor_group.motor5.step += app_config.schedule[schedule_index].feed_m5 * app_config.motor_cfg.m_step[4];
+                motor_group.motor1.step += app_config.schedule[schedule_index].feed_m1 * (app_config.motor_cfg.m_step[0] << 1);
+                motor_group.motor2.step += app_config.schedule[schedule_index].feed_m2 * (app_config.motor_cfg.m_step[1] << 1);
+                motor_group.motor3.step += app_config.schedule[schedule_index].feed_m3 * (app_config.motor_cfg.m_step[2] << 1);
+                motor_group.motor4.step += app_config.schedule[schedule_index].feed_m4 * (app_config.motor_cfg.m_step[3] << 1);
+                motor_group.motor5.step += app_config.schedule[schedule_index].feed_m5 * (app_config.motor_cfg.m_step[4] << 1);
 
                 schedule_index++;
             }
