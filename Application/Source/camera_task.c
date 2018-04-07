@@ -207,8 +207,8 @@ void Camera_SaveTask(void * argument)
             if((camera_info.fifo_buffer[fifo_index].data[0] == 0xFF) && (camera_info.fifo_buffer[fifo_index].data[1] == 0xD8))
             {        
                 /* Fill filename to fifo */
-                HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
                 HAL_RTC_GetTime(&hrtc, &sTime, RTC_FORMAT_BIN);
+                HAL_RTC_GetDate(&hrtc, &sDate, RTC_FORMAT_BIN);
                 /* JPEG filename is current date+time */
                 sprintf(camera_info.fifo_buffer[fifo_index].filename, "%04d%02d%02d%02d%02d%02d.jpg", 
                         sDate.Year+2000, sDate.Month, sDate.Date, sTime.Hours, sTime.Minutes, sTime.Seconds);

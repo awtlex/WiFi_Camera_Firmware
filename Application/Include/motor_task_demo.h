@@ -9,8 +9,7 @@
 * Copyright (C) 2017 Douglas Xie.  All rights reserved.
 ***************************************************************************************************
 */
-
-#ifndef USE_DEMO_VERSION
+#ifdef USE_DEMO_VERSION
 
 #ifndef  MOTOR_TASK
 #define  MOTOR_TASK
@@ -51,6 +50,8 @@
 #define MOTOR_STEP_CH3      MOTOR_STEP3_GPIO_Port, MOTOR_STEP3_Pin
 #define MOTOR_STEP_CH4      MOTOR_STEP4_GPIO_Port, MOTOR_STEP4_Pin
 #define MOTOR_STEP_CH5      MOTOR_STEP5_GPIO_Port, MOTOR_STEP5_Pin
+/* Motor led pins define */
+#define MOTOR_LED           MOTOR_LED_GPIO_Port, MOTOR_LED_Pin
 
 /* Pins general output control interface */
 #define Motor_OutputLow(x)      HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
@@ -62,6 +63,10 @@
 /* Direction pins control interface */
 #define Motor_TurnLeft(x)       HAL_GPIO_WritePin(x, GPIO_PIN_SET)
 #define Motor_TurnRight(x)      HAL_GPIO_WritePin(x, GPIO_PIN_RESET)
+/* Led pins control interface */
+#define Motor_LedOn()           HAL_GPIO_WritePin(MOTOR_LED, GPIO_PIN_SET)
+#define Motor_LedOff()          HAL_GPIO_WritePin(MOTOR_LED, GPIO_PIN_RESET)
+#define Motor_LedToggle()       HAL_GPIO_TogglePin(MOTOR_LED)
 
 #define MOTOR_DEFAULT_DIR       'R'
 #define MOTOR_DEFAULT_FREQ      1000     /* 1kHz */
@@ -96,8 +101,9 @@ typedef enum
     MOTOR_RUN_CH4,
     MOTOR_RUN_CH5,
     MOTOR_IDLE
+    
 } Motor_State_t;
-
+    
 /* Function Declaration -------------------------------------------------------------------------*/
 
 /*******************************************************************************
@@ -116,6 +122,57 @@ void Motor_ControlTask(void * argument);
 *******************************************************************************/
 void Motor_StepControl_IRQ(void);
 
+/*******************************************************************************
+* @Brief   Set Motor Direction
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+*          c_dir[in]: direction char type value 'L' or 'R'
+* @Note    set motor running direction
+* @Return  
+*******************************************************************************/
+void Motor_SetDirection(uint8_t c_ch, uint8_t c_dir);
+
+/*******************************************************************************
+* @Brief   Get Motor Direction
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+* @Note    get motor running direction
+* @Return  'L' or 'R'
+*******************************************************************************/
+uint8_t Motor_GetDirection(uint8_t c_ch);
+
+/*******************************************************************************
+* @Brief   Set Motor Step
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+*          step[in]: motor step counter value
+* @Note    set motor step
+* @Return  
+*******************************************************************************/
+void Motor_SetStep(uint8_t c_ch, uint16_t step);
+
+/*******************************************************************************
+* @Brief   Get Motor Step
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+* @Note    get motor step
+* @Return  motor step counter value
+*******************************************************************************/
+uint16_t Motor_GetStep(uint8_t c_ch);
+
+/*******************************************************************************
+* @Brief   Set Motor Signal Frequency
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+*          frequency[in]: channel step signal frequency value
+* @Note    set motor step signal frequency
+* @Return  
+*******************************************************************************/
+void Motor_SetFrequency(uint8_t c_ch, uint32_t freq);
+
+/*******************************************************************************
+* @Brief   Get Motor Signal Frequency
+* @Param   c_ch[in]: channel char type value '1' ~ '5'
+* @Note    get motor step signal frequency
+* @Return  frequency value
+*******************************************************************************/
+uint32_t Motor_GetFrequency(uint8_t c_ch);
 
 #endif /* MOTOR_TASK */
+
 #endif /* USE_DEMO_VERSION */

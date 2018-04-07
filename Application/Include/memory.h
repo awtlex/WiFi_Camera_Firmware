@@ -118,12 +118,12 @@ typedef union APP_CONFIG
         uint8_t     cloud_server[64];
         uint16_t    cloud_port;     //2     
         MotorCfg_t  motor_cfg;      //25
-        SchCfg_t    schedule[5];    //35
-        uint16_t    sch_count;      //2     
+        SchCfg_t    schedule[12];   //84
+        uint8_t     sch_count;      //1  
         uint32_t    checksum;
     };
-    uint32_t array32[65];
-    uint8_t  array[260];
+    uint32_t array32[77];
+    uint8_t  array[308];
 } App_Config_t;
 #pragma   pack()
 

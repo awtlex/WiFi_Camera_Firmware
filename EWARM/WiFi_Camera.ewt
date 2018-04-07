@@ -1240,6 +1240,9 @@
           <name>$PROJ_DIR$\..\Application\Include\motor_task.h</name>
         </file>
         <file>
+          <name>$PROJ_DIR$\..\Application\Include\motor_task_demo.h</name>
+        </file>
+        <file>
           <name>$PROJ_DIR$\..\Application\Include\wifi_task.h</name>
         </file>
         <file>
@@ -1265,6 +1268,9 @@
         </file>
         <file>
           <name>$PROJ_DIR$\..\Application\Source\motor_task.c</name>
+        </file>
+        <file>
+          <name>$PROJ_DIR$\..\Application\Source\motor_task_demo.c</name>
         </file>
         <file>
           <name>$PROJ_DIR$\..\Application\Source\wifi_task.c</name>

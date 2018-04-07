@@ -20,9 +20,9 @@
 #include "stdbool.h"
 
 /* Macro Define ---------------------------------------------------------------------------------*/
-#define APP_VERSION     ((uint32_t)208)                 /* v2.06 */
-#define APP_VER_DBG     "RunTime Version V2.08\r\n"     /* display for debug print */
-#define APP_VER_DISP    "      V2.08     "              /* 16bytes */
+#define APP_VERSION     ((uint32_t)209)                 /* v2.09 */
+#define APP_VER_DBG     "RunTime Version V2.09\r\n"     /* display for debug print */
+#define APP_VER_DISP    "      V2.09     "              /* 16bytes */
 #define APP_NAME_DISP   " AniTech System "
 
 #ifdef USE_DEMO_VERSION
